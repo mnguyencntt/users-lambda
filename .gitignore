@@ -1,0 +1,13 @@
+/.gradle/
+/.idea/
+/.idea/*.xml
+/.sts4-cache/
+/.settings/
+/bin/
+/build/
+/target/
+/.classpath
+/.factorypath
+/.project
+/*.iml
+/*.class
