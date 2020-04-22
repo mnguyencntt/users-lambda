@@ -57,11 +57,26 @@ public final class ObjectUtils {
     }
   }
 
-  public static <T, U> List<U> convertList(List<T> from, Function<T, U> func) {
+  public static <T, U> List<U> convertList(final List<T> from, final Function<T, U> func) {
     return from.stream().map(func).collect(Collectors.toList());
   }
 
-  public static <T, U> U[] convertArray(T[] from, Function<T, U> func, IntFunction<U[]> generator) {
+  public static <T, U> U[] convertArray(final T[] from, final Function<T, U> func, final IntFunction<U[]> generator) {
     return Arrays.stream(from).map(func).toArray(generator);
   }
+
+  public static String capitalizeFirstLetter(final String str) {
+    if (ObjectUtils.isEmpty(str)) {
+      return Constants.EMPTY;
+    }
+    return str.substring(0, 1).toUpperCase() + str.substring(1);
+  }
+
+  public static Boolean isArrContain(final String input, final String... strs) {
+    if (ObjectUtils.isEmpty(input) || ObjectUtils.isEmpty(strs)) {
+      return Boolean.FALSE;
+    }
+    return Arrays.stream(strs).anyMatch(p -> p.equalsIgnoreCase(input));
+  }
+
 }

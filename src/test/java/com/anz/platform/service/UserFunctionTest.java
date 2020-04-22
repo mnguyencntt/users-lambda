@@ -30,7 +30,7 @@ public class UserFunctionTest extends BaseTest {
         + "  \"sesEmail\": \"m.nguyencntt7891@gmail.com\",\n" 
         + "  \"functionType\": \"SEND\"\n" + "}";
     final UserRequest userRequest = JsonUtils.toObject(userRequestJson, UserRequest.class);
-    ApiResponse submitUser = userFunction.submitUser(userRequest, createContext());
+    ApiResponse submitUser = userFunction.createUser(userRequest, createContext());
     System.out.println(submitUser);
     ApiResponse findUser = userFunction.findUser(UserRequest.builder().userId("d8ffe614-133c-4fc8-a4af-1e2b5a0331e9").build(), createContext());
     System.out.println(findUser);

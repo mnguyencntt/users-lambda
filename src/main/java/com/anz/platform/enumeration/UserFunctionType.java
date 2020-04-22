@@ -5,7 +5,7 @@ import java.util.List;
 
 public enum UserFunctionType {
   //
-  SEND("", "Send new user"),
+  CREATE("", "Send new user"),
   //
   UPDATE("", "Update user"),
   //

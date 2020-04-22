@@ -2,6 +2,7 @@ package com.anz.platform.domain;
 
 import java.util.Map;
 import com.anz.platform.enumeration.UserFunctionType;
+import com.anz.platform.enumeration.UserType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,15 +16,24 @@ public class UserRequest {
   // Query
   private String userId;
 
-  // Sender
-  private String senderId;
-  private String orderId;
-  private String eventStatus; // ORDER_CREATED - DELIVERY_CREATED - DELIVERY_COMPLETED
+  // Authentication info
+  private String username;
+  private String password;
 
-  // Reciever
-  private String recieverId;
-  private String smsNumber;
-  private String sesEmail;
+  // User info
+  private String name;
+  private String dob;
+  private String gender;
+  private String isActivated;
+  private UserType userType;
+  private String lastLogin;
+  private String imageAvatarUrl;
+
+  // aAdress info
+  private AddressRequest baseAddress;
+  private AddressRequest billingAddress;
+  private AddressRequest deliveryAddress;
+
 
   // Function-Type
   private UserFunctionType functionType; // SEND - UPDATE - FIND - FINDALL - DELETE

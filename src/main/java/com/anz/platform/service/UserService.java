@@ -62,6 +62,8 @@ public class UserService {
     }
   }
 
+  // INSERT INTO table_name (column1, column2, column3, ...)
+  // VALUES (value1, value2, value3, ...);
   public Integer persist(final Users item) {
     log.info(Constants.INITIALIZE_CONNECTION);
     try (final Connection connection = DriverManager.getConnection(dbInfo.getEndpoint(), dbInfo.getUsername(), dbInfo.getPassword())) {
@@ -71,6 +73,27 @@ public class UserService {
         log.info(insertSQL);
         final Object[] inputValues = item.findValues();
         return new QueryRunner().update(connection, insertSQL, inputValues);
+      } finally {
+        DbUtils.close(connection);
+      }
+    } catch (Exception e) {
+      log.info(e.getMessage());
+      return null;
+    }
+  }
+
+  // UPDATE table_name
+  // SET column1 = value1, column2 = value2, ...
+  // WHERE condition;
+  public Integer updateById(final Users item) {
+    log.info(Constants.INITIALIZE_CONNECTION);
+    try (final Connection connection = DriverManager.getConnection(dbInfo.getEndpoint(), dbInfo.getUsername(), dbInfo.getPassword())) {
+      log.info(Constants.SUCCESSFUL_CONNECTION);
+      try {
+        final String updateSQL = String.format("Update %s SET %s WHERE Id=%s", item.getClass().getSimpleName(), item.findFieldValuesJoining("Id"), item.getId());
+        log.info(updateSQL);
+        final Object[] inputValues = item.findValues();
+        return new QueryRunner().update(connection, updateSQL, inputValues);
       } finally {
         DbUtils.close(connection);
       }

@@ -24,16 +24,16 @@ public class UserFunction {
   private DbInfo dbInfo = appConfig.getDbInfo();
 
   /*
-   * submitUser
+   * createUser
    */
-  public ApiResponse submitUser(final UserRequest request, final Context context) {
+  public ApiResponse createUser(final UserRequest request, final Context context) {
     try {
       log.info("Request Data: {}", request);
       final UserService userService = new UserService(dbInfo);
 
       final Users user = Users.builder()
           .id(UUID.randomUUID().toString())
-          .receiverUserId(request.getRecieverId())
+          .receiverUserId(request.getUserId())
           .status(Constants.STATUS_000)
           .message(Constants.USER_SEND_SUCCESS)
           .request(JsonUtils.toJson(request))
@@ -41,6 +41,36 @@ public class UserFunction {
       user.persist();
 
       final Integer updatedCount = userService.persist(user);
+      if (updatedCount > 0) {
+        log.info("Response Data: {}", user);
+        return ApiResponse.build(Constants.STATUS_000, UserResponse.buildResponse(user, String.valueOf(11111)), Constants.USER_SEND_SUCCESS);
+      } else {
+        throw new UserException(Constants.USER_PERSIST_FAILED);
+      }
+    } catch (Exception e) {
+      log.error(e.getMessage());
+      throw new UserException(e.getMessage());
+    }
+  }
+
+  /*
+   * updateUser
+   */
+  public ApiResponse updateUser(final UserRequest request, final Context context) {
+    try {
+      log.info("Request Data: {}", request);
+      final UserService userService = new UserService(dbInfo);
+
+      final Users user = Users.builder()
+          .id(UUID.randomUUID().toString())
+          .receiverUserId(request.getUserId())
+          .status(Constants.STATUS_000)
+          .message(Constants.USER_SEND_SUCCESS)
+          .request(JsonUtils.toJson(request))
+          .build();
+      user.persist();
+
+      final Integer updatedCount = userService.updateById(user);
       if (updatedCount > 0) {
         log.info("Response Data: {}", user);
         return ApiResponse.build(Constants.STATUS_000, UserResponse.buildResponse(user, String.valueOf(11111)), Constants.USER_SEND_SUCCESS);

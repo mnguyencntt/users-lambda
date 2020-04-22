@@ -20,6 +20,10 @@ import lombok.ToString;
 public class Users extends BaseObject {
   private String id;
 
+  // Authentication info
+  private String username;
+  private String password;
+
   private String receiverUserId;
 
   private String subject;
