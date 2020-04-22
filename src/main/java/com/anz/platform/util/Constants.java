@@ -52,13 +52,13 @@ public final class Constants {
 
   public static final String SMS_SENT_SUCCESSFUL = "SMS sent successful!!!";
   public static final String EMAIL_SENT_SUCCESSFUL = "Email sent successful!!!";
-  public static final String DELIVERY_FUNCTION_NOT_SUPPORT = "UserFunctionType '%s' does not support.";
-  public static final String DELIVERY_PERSIST_SUCCESS = "User persisted success.";
-  public static final String DELIVERY_PERSIST_FAILED = "User persisted fail.";
-  public static final String DELIVERY_SEND_SUCCESS = "User sent success.";
-  public static final String DELIVERY_SEND_FAILED = "User sent fail.";
-  public static final String DELIVERY_FOUND = "User found.";
-  public static final String DELIVERY_NOT_FOUND = "User not found.";
+  public static final String USER_FUNCTION_NOT_SUPPORT = "UserFunctionType '%s' does not support.";
+  public static final String USER_PERSIST_SUCCESS = "User persisted success.";
+  public static final String USER_PERSIST_FAILED = "User persisted fail.";
+  public static final String USER_SEND_SUCCESS = "User sent success.";
+  public static final String USER_SEND_FAILED = "User sent fail.";
+  public static final String USER_FOUND = "User found.";
+  public static final String USER_NOT_FOUND = "User not found.";
   public static final String INITIALIZE_CONNECTION = "Initialize connection to MySQL with driver.";
   public static final String SUCCESSFUL_CONNECTION = "Connected to MySQL database. Now try to execute query by QueryRunner.";
 

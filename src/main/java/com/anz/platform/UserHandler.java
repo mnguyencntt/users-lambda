@@ -1,6 +1,6 @@
 package com.anz.platform;
 
-import static com.anz.platform.util.Constants.DELIVERY_FUNCTION_NOT_SUPPORT;
+import static com.anz.platform.util.Constants.USER_FUNCTION_NOT_SUPPORT;
 import static com.anz.platform.util.Constants.STATUS_101;
 import static com.anz.platform.util.Constants.STATUS_999;
 import com.amazonaws.services.lambda.runtime.Context;
@@ -30,7 +30,7 @@ public class UserHandler implements RequestHandler<UserRequest, ApiResponse> {
       } else if (UserFunctionType.FINDALL.equals(request.getFunctionType())) {
         return function.findUsers(request, context);
       } else {
-        throw new InvalidRequestException(String.format(DELIVERY_FUNCTION_NOT_SUPPORT, request.getFunctionType()));
+        throw new InvalidRequestException(String.format(USER_FUNCTION_NOT_SUPPORT, request.getFunctionType()));
       }
     } catch (InvalidRequestException e) {
       return ApiResponse.build(STATUS_101, null, e.getMessage());

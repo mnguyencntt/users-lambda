@@ -35,7 +35,7 @@ public class UserFunction {
           .id(UUID.randomUUID().toString())
           .receiverUserId(request.getRecieverId())
           .status(Constants.STATUS_000)
-          .message(Constants.DELIVERY_SEND_SUCCESS)
+          .message(Constants.USER_SEND_SUCCESS)
           .request(JsonUtils.toJson(request))
           .build();
       user.persist();
@@ -43,9 +43,9 @@ public class UserFunction {
       final Integer updatedCount = userService.persist(user);
       if (updatedCount > 0) {
         log.info("Response Data: {}", user);
-        return ApiResponse.build(Constants.STATUS_000, UserResponse.buildResponse(user, String.valueOf(11111)), Constants.DELIVERY_SEND_SUCCESS);
+        return ApiResponse.build(Constants.STATUS_000, UserResponse.buildResponse(user, String.valueOf(11111)), Constants.USER_SEND_SUCCESS);
       } else {
-        throw new UserException(Constants.DELIVERY_PERSIST_FAILED);
+        throw new UserException(Constants.USER_PERSIST_FAILED);
       }
     } catch (Exception e) {
       log.error(e.getMessage());
@@ -62,10 +62,10 @@ public class UserFunction {
       final UserService userService = new UserService(dbInfo);
       final Users user = userService.findById(request.getUserId(), Users.class);
       log.info("Response Data: {}", user);
-      return ApiResponse.build(Constants.STATUS_000, user, Constants.DELIVERY_FOUND);
+      return ApiResponse.build(Constants.STATUS_000, user, Constants.USER_FOUND);
     } catch (Exception e) {
       log.error(e.getMessage());
-      return ApiResponse.build(Constants.STATUS_999, null, Constants.DELIVERY_NOT_FOUND);
+      return ApiResponse.build(Constants.STATUS_999, null, Constants.USER_NOT_FOUND);
     }
   }
 
@@ -79,10 +79,10 @@ public class UserFunction {
       final List<Users> users = userService.findAll(Users.class);
       users.sort(Comparator.comparing(Users::getUpdatedAt));
       log.info("Response Data: {}", users);
-      return ApiResponse.build(Constants.STATUS_000, users, Constants.DELIVERY_FOUND);
+      return ApiResponse.build(Constants.STATUS_000, users, Constants.USER_FOUND);
     } catch (Exception e) {
       log.error(e.getMessage());
-      return ApiResponse.build(Constants.STATUS_999, Collections.emptyList(), Constants.DELIVERY_NOT_FOUND);
+      return ApiResponse.build(Constants.STATUS_999, Collections.emptyList(), Constants.USER_NOT_FOUND);
     }
   }
 }
