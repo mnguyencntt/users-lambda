@@ -62,6 +62,25 @@ public class UserService {
     }
   }
 
+  public <T> T findByField(final String fieldName, final String fieldValue, Class<T> clazz) {
+    log.info(Constants.INITIALIZE_CONNECTION);
+    try (final Connection connection = DriverManager.getConnection(dbInfo.getEndpoint(), dbInfo.getUsername(), dbInfo.getPassword())) {
+      log.info(Constants.SUCCESSFUL_CONNECTION);
+      final ResultSetHandler<T> resultHandler = new BeanHandler<>(clazz);
+      try {
+        final String selectByField = String.format("SELECT * FROM Users WHERE %s = ?", fieldName);
+        T query = new QueryRunner().query(connection, selectByField, resultHandler, fieldValue);
+        log.info("Found Item by '{}'", fieldValue);
+        return query;
+      } finally {
+        DbUtils.close(connection);
+      }
+    } catch (Exception e) {
+      log.info(e.getMessage());
+      return null;
+    }
+  }
+
   // INSERT INTO table_name (column1, column2, column3, ...)
   // VALUES (value1, value2, value3, ...);
   public Integer persist(final Users item) {

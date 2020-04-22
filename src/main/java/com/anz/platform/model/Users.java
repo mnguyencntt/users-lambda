@@ -1,7 +1,9 @@
 package com.anz.platform.model;
 
-import org.joda.time.LocalDateTime;
+import static com.anz.platform.util.Constants.DDMMYYYY_HHMMSS;
+import java.time.LocalDateTime;
 import com.anz.platform.model.base.BaseObject;
+import com.anz.platform.util.DatetimeUtils;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -24,16 +26,18 @@ public class Users extends BaseObject {
   private String username;
   private String password;
 
-  private String receiverUserId;
-
-  private String subject;
-  private String contentBody;
-
+  private String name;
+  private String dob;
+  private String gender;
+  private String isActivated;
   private String userType;
-  private String amount;
-  private String status;
-  private String message;
+  private String lastLogin;
+  private String imageAvatarUrl;
   private String request; // store request of API
+
+  private String baseAddress; // AddressRequest
+  private String billingAddress; // AddressRequest
+  private String deliveryAddress; // AddressRequest
 
   private String createdAt;
   private String createdBy;
@@ -41,14 +45,14 @@ public class Users extends BaseObject {
   private String updatedBy;
 
   public void persist() {
-    createdAt = LocalDateTime.now().toString();
+    createdAt = DatetimeUtils.formatDateTime(LocalDateTime.now(), DDMMYYYY_HHMMSS);
     createdBy = "Anonymous";
-    updatedAt = LocalDateTime.now().toString();
+    updatedAt = DatetimeUtils.formatDateTime(LocalDateTime.now(), DDMMYYYY_HHMMSS);
     updatedBy = "Anonymous";
   }
 
   public void update() {
-    updatedAt = LocalDateTime.now().toString();
+    updatedAt = DatetimeUtils.formatDateTime(LocalDateTime.now(), DDMMYYYY_HHMMSS);
     updatedBy = "Anonymous";
   }
 }

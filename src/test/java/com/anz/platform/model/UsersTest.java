@@ -8,7 +8,7 @@ import org.junit.Test;
 public class UsersTest {
   @Test
   public void testUser() {
-    int expectedLength = 15;
+    int expectedLength = 18;
 
     Users user = new Users();
     user.setId("12345");

@@ -13,10 +13,7 @@ public class UserServiceTest {
   public void testUser() {
     final UserService userService = new UserService(new AppConfigMock().getDbInfo());
 
-    final Users user = Users.builder().id(UUID.randomUUID().toString()).receiverUserId("UIB12345").subject("User OrderId OID12345").contentBody("Minh Nguyen Testing Content Body")
-        .userType("EMAIL").amount("1").build();
-    user.setStatus("status");
-    user.setMessage("message");
+    final Users user = Users.builder().id(UUID.randomUUID().toString()).username("testuser").password("testpassword").build();
     user.setRequest("request");
     user.persist();
 

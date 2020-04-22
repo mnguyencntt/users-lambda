@@ -9,7 +9,9 @@ public enum UserFunctionType {
   //
   UPDATE("", "Update user"),
   //
-  FIND("", "Find user by Id"),
+  AUTHENTICATE("", "Authenticate by Username/Password"),
+  //
+  FINDID("", "Find user by Id"),
   //
   FINDALL("", "Find all users"),
   //

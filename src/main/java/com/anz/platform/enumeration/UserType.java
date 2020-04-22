@@ -21,6 +21,10 @@ public enum UserType {
     return Arrays.asList(UserType.values());
   }
 
+  public static UserType getType(final String type) {
+    return Arrays.asList(UserType.values()).stream().filter(p -> p.name().equalsIgnoreCase(type)).findAny().orElse(null);
+  }
+
   public String getValue() {
     return value;
   }

@@ -1,6 +1,5 @@
 package com.anz.platform.domain;
 
-import com.anz.platform.model.Users;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,14 +10,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserResponse {
-  private String buyerId;
-  private String sellerId;
-  private String receiverId;
-  private String userId;
-  private String userType;
-  private String amount;
+  private String id;
 
-  public static UserResponse buildResponse(final Users user, final String amount) {
-    return UserResponse.builder().receiverId(user.getReceiverUserId()).userId(user.getId()).userType(user.getUserType()).amount(amount).build();
-  }
+  // Authentication info
+  private String username;
+  private String password;
+
+  // Authentication token_id
+  private String tokenId;
 }
