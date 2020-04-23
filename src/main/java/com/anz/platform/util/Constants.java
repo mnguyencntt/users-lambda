@@ -35,7 +35,6 @@ public final class Constants {
   public static final String UNDERSCORE = "_";
   public static final String NEW_LINE_SEPARATOR = "\n";
 
-  public static final String JACOCO_DATA = "$jacocoData";
   public static final String DOT_TXT = ".txt";
   public static final String DOT_CSV = ".csv";
   public static final String DOT_ZIP = ".zip";
