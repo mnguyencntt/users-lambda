@@ -44,7 +44,7 @@ public class UserRequest {
   private AddressInfo deliveryAddress;
 
   // Function-Type
-  private UserFunctionType functionType; // SEND - UPDATE - FIND - FINDALL - DELETE
+  private UserFunctionType functionType; // SEND - UPDATE - FINDID - FINDALL - DELETE
   private Map<String, String> additionalFields;
 
   public Users buildUsers() throws IllegalAccessException, InvocationTargetException {
