@@ -9,7 +9,6 @@ import org.apache.commons.beanutils.BeanUtils;
 import com.anz.platform.enumeration.UserFunctionType;
 import com.anz.platform.enumeration.UserType;
 import com.anz.platform.model.Users;
-import com.anz.platform.util.Constants;
 import com.anz.platform.util.DatetimeUtils;
 import com.anz.platform.util.JsonUtils;
 import com.anz.platform.util.ObjectUtils;
@@ -32,7 +31,7 @@ public class UserRequest {
 
   // User info
   private String name;
-  private String dob;
+  private String dateOfBirth;
   private String gender;
   private String isActivated;
   private UserType userType;

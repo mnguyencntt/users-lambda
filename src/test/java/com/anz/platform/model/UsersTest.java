@@ -1,15 +1,15 @@
 package com.anz.platform.model;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.List;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class UsersTest {
+  private static final int expectedLength = 18;
+
   @Test
   public void testUser() {
-    int expectedLength = 18;
-
     Users user = new Users();
     user.setId("12345");
     user.setUsername("testuser");
@@ -35,19 +35,19 @@ public class UsersTest {
 
     //
     List<String> findFieldValues1 = user.findFieldValues();
-    assertEquals("id=12345", findFieldValues1.get(0));
-    assertEquals("username=testuser", findFieldValues1.get(1));
-    assertEquals("password=testpassword", findFieldValues1.get(2));
+    assertEquals("id='12345'", findFieldValues1.get(0));
+    assertEquals("username='testuser'", findFieldValues1.get(1));
+    assertEquals("password='testpassword'", findFieldValues1.get(2));
     List<String> findFieldValues2 = user.findFieldValues("id");
-    assertEquals("username=testuser", findFieldValues2.get(0));
-    assertEquals("password=testpassword", findFieldValues2.get(1));
+    assertEquals("username='testuser'", findFieldValues2.get(0));
+    assertEquals("password='testpassword'", findFieldValues2.get(1));
 
     //
     String findFieldValuesJoining1 = user.findFieldValuesJoining();
     System.out.println(findFieldValuesJoining1);
-    assertEquals("id=12345,username=testuser,password=testpassword", findFieldValuesJoining1);
+    assertTrue(findFieldValuesJoining1.startsWith("id='12345',username='testuser',password='testpassword',"));
     String findFieldValuesJoining2 = user.findFieldValuesJoining("id");
     System.out.println(findFieldValuesJoining2);
-    assertEquals("username=testuser,password=testpassword", findFieldValuesJoining2);
+    assertTrue(findFieldValuesJoining2.startsWith("username='testuser',password='testpassword',"));
   }
 }

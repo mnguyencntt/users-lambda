@@ -111,8 +111,7 @@ public class UserService {
       try {
         final String updateSQL = String.format("Update %s SET %s WHERE Id=%s", item.getClass().getSimpleName(), item.findFieldValuesJoining("Id"), item.getId());
         log.info(updateSQL);
-        final Object[] inputValues = item.findValues();
-        return new QueryRunner().update(connection, updateSQL, inputValues);
+        return new QueryRunner().update(connection, updateSQL);
       } finally {
         DbUtils.close(connection);
       }

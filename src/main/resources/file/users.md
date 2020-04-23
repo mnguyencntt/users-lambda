@@ -41,7 +41,7 @@ Parameters
                 "userId": "UI12345",
                 "username": "m.nguyencntt",
                 "name": "Nguyen Van Minh",
-                "dob": "01-01-1991",
+                "dateOfBirth": "01-01-1991",
                 "gender": "male",
                 "isActivated": "true",
                 "status": "Account is activated",
@@ -135,7 +135,7 @@ Parameters
                 "userId": "UI12345",
                 "username": "m.nguyencntt",
                 "name": "Nguyen Van Minh",
-                "dob": "01-01-1991",
+                "dateOfBirth": "01-01-1991",
                 "gender": "male",
                 "isActivated": "true",
                 "status": "Account is activated",
@@ -143,12 +143,12 @@ Parameters
                 "lastLogin": "2020/04/04 12:12:12 +0800",
                 "imageAvatarUrl": "https://www.google.com/mnguyencntt_avatar.png",
                 "address": {
-					"addressId": "AI12345",
-					"address": "145 Mei Ling Str",
-					"postcode": "140145",
-					"email": "m.nguyencntt@gmail.com",
-					"handPhone": "93767011"
-				}
+                    "addressId": "AI12345",
+                    "address": "145 Mei Ling Str",
+                    "postcode": "140145",
+                    "email": "m.nguyencntt@gmail.com",
+                    "handPhone": "93767011"
+                }
             }
         }
     ]

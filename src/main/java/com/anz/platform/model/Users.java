@@ -27,7 +27,7 @@ public class Users extends BaseObject {
   private String password;
 
   private String name;
-  private String dob;
+  private String dateOfBirth;
   private String gender;
   private String isActivated;
   private String userType;
