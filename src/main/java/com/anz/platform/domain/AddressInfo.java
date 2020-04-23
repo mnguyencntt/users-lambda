@@ -11,11 +11,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AddressInfo {
   private String addressId;
+
   private String fullAddress;
-  private String postnumber;
+  private String postcode;
+  private boolean isContactless;
+
   private String phoneNumber;
   private boolean isPhonePhoneVerified;
+
   private String email;
   private boolean isEmailVerified;
-
 }
