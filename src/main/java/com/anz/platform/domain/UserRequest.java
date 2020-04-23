@@ -38,7 +38,7 @@ public class UserRequest {
   private String lastLogin;
   private String imageAvatarUrl;
 
-  // aAdress info
+  // Address info
   private AddressInfo baseAddress;
   private AddressInfo billingAddress;
   private AddressInfo deliveryAddress;
