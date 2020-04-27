@@ -40,7 +40,7 @@ public class UserServiceTest extends BaseTest {
     final Users user =
         Users.builder().id("54321").username("testuser2").password("testpassword2").name("MinhNguyen").dateOfBirth("01/01/1991").gender("Male").isActivated("TRUE").userType("SELLER").build();
     user.setRequest("request-json-format");
-    user.persist();
+    user.persist("MinhNguyen");
     assertEquals(new Integer(1), userService.persist(user));
   }
 
@@ -49,7 +49,7 @@ public class UserServiceTest extends BaseTest {
     final Users user =
         Users.builder().id("12345").username("testuser2").password("testpassword2").name("MinhNguyen").dateOfBirth("01/01/1991").gender("Male").isActivated("TRUE").userType("SELLER").build();
     user.setRequest("request-json-format");
-    user.persist();
+    user.persist("MinhNguyen");
     assertEquals(new Integer(1), userService.updateById(user));
   }
 }

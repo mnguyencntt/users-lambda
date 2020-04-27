@@ -41,6 +41,7 @@ public final class Constants {
   public static final String DOT_CSV = ".csv";
   public static final String DOT_ZIP = ".zip";
 
+  public static final String ANONYMOUS = "Anonymous";
   public static final String NOT_EMPTY = "%s cannot be EMPTY/NULL";
 
   public static final String UTF8 = "UTF-8";

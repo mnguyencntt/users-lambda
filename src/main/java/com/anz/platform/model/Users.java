@@ -1,9 +1,11 @@
 package com.anz.platform.model;
 
+import static com.anz.platform.util.Constants.ANONYMOUS;
 import static com.anz.platform.util.Constants.DDMMYYYY_HHMMSS;
 import java.time.LocalDateTime;
 import com.anz.platform.model.base.BaseObject;
 import com.anz.platform.util.DatetimeUtils;
+import com.anz.platform.util.ObjectUtils;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -46,15 +48,24 @@ public class Users extends BaseObject {
   private String updatedAt;
   private String updatedBy;
 
-  public void persist() {
-    createdAt = DatetimeUtils.formatDateTime(LocalDateTime.now(), DDMMYYYY_HHMMSS);
-    createdBy = "Anonymous";
-    updatedAt = DatetimeUtils.formatDateTime(LocalDateTime.now(), DDMMYYYY_HHMMSS);
-    updatedBy = "Anonymous";
+  public void persist(final String username) {
+    createdAt = LocalDateTime.now().toString();
+    updatedAt = LocalDateTime.now().toString();
+    if (ObjectUtils.isEmpty(username)) {
+      createdBy = ANONYMOUS;
+      updatedBy = ANONYMOUS;
+    } else {
+      createdBy = username;
+      updatedBy = username;
+    }
   }
 
-  public void update() {
-    updatedAt = DatetimeUtils.formatDateTime(LocalDateTime.now(), DDMMYYYY_HHMMSS);
-    updatedBy = "Anonymous";
+  public void update(final String username) {
+    updatedAt = LocalDateTime.now().toString();
+    if (ObjectUtils.isEmpty(username)) {
+      updatedBy = ANONYMOUS;
+    } else {
+      updatedBy = username;
+    }
   }
 }

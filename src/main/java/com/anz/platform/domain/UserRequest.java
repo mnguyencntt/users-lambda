@@ -57,7 +57,11 @@ public class UserRequest {
     user.setRequest(JsonUtils.toJson(this));
     user.setLastLogin(DatetimeUtils.formatDateTime(LocalDateTime.now(), DDMMYYYY_HHMMSS));
     user.setUserType(this.getUserType().name());
-    user.persist();
+    if (UserFunctionType.CREATE.equals(functionType)) {
+      user.persist(username);
+    } else {
+      user.update(username);
+    }
     return user;
   }
 
