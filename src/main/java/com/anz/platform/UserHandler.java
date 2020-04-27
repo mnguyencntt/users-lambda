@@ -30,7 +30,9 @@ public class UserHandler implements RequestHandler<UserRequest, ApiResponse> {
       } else if (UserFunctionType.AUTHENTICATE.equals(request.getFunctionType())) {
         return function.authenticateUser(request, context);
       } else if (UserFunctionType.FINDID.equals(request.getFunctionType())) {
-        return function.findUser(request, context);
+        return function.findUserById(request, context);
+      } else if (UserFunctionType.FINDUSERNAME.equals(request.getFunctionType())) {
+        return function.findUserByUsername(request, context);
       } else if (UserFunctionType.FINDALL.equals(request.getFunctionType())) {
         return function.findUsers(request, context);
       } else {

@@ -13,6 +13,8 @@ public enum UserFunctionType {
   //
   FINDID("", "Find user by Id"),
   //
+  FINDUSERNAME("", "Find user by Username"),
+  //
   FINDALL("", "Find all users"),
   //
   DELETE("", "Delete user by Id");

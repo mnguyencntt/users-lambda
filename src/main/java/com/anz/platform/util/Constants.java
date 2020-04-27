@@ -58,6 +58,7 @@ public final class Constants {
   public static final String USER_SEND_SUCCESS = "User sent success.";
   public static final String USER_SEND_FAILED = "User sent fail.";
   public static final String USER_FOUND = "User found.";
+  public static final String USER_EXISTING = "User existing with username.";
   public static final String USER_NOT_FOUND = "User not found.";
   public static final String INITIALIZE_CONNECTION = "Initialize connection to MySQL with driver.";
   public static final String SUCCESSFUL_CONNECTION = "Connected to MySQL database. Now try to execute query by QueryRunner.";

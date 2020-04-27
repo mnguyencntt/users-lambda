@@ -20,6 +20,8 @@ import lombok.ToString;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 public class Users extends BaseObject {
+  public static final String USERNAME = "username";
+
   private String id;
 
   // Authentication info

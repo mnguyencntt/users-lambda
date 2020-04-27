@@ -1,5 +1,6 @@
 package com.anz.platform.service;
 
+import static com.anz.platform.model.Users.USERNAME;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -11,6 +12,7 @@ import com.anz.platform.domain.UserRequest;
 import com.anz.platform.exception.UserException;
 import com.anz.platform.model.Users;
 import com.anz.platform.util.Constants;
+import com.anz.platform.util.ObjectUtils;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -52,6 +54,11 @@ public class UserFunction {
       log.info("Request Data: {}", request);
       final UserService userService = new UserService(dbInfo);
 
+      ApiResponse findUserByUsername = findUserByUsername(request, context);
+      if (ObjectUtils.isNotEmpty(findUserByUsername)) {
+        throw new UserException(Constants.USER_EXISTING);
+      }
+
       final Users user = request.buildUsers();
       user.persist();
 
@@ -75,7 +82,7 @@ public class UserFunction {
     try {
       log.info("Request Data: {}", request);
       final UserService userService = new UserService(dbInfo);
-      final Users user = userService.findByField("username", request.getUsername(), Users.class);
+      final Users user = userService.findByField(USERNAME, request.getUsername(), Users.class);
       log.info("Response Data: {}", user);
       return ApiResponse.build(Constants.STATUS_000, user, Constants.USER_FOUND);
     } catch (Exception e) {
@@ -87,11 +94,27 @@ public class UserFunction {
   /*
    * findUser
    */
-  public ApiResponse findUser(final UserRequest request, final Context context) {
+  public ApiResponse findUserById(final UserRequest request, final Context context) {
     try {
       log.info("Request Data: {}", request);
       final UserService userService = new UserService(dbInfo);
       final Users user = userService.findById(request.getUserId(), Users.class);
+      log.info("Response Data: {}", user);
+      return ApiResponse.build(Constants.STATUS_000, user, Constants.USER_FOUND);
+    } catch (Exception e) {
+      log.error(e.getMessage());
+      return ApiResponse.build(Constants.STATUS_999, null, Constants.USER_NOT_FOUND);
+    }
+  }
+
+  /*
+   * findUserByUsername
+   */
+  public ApiResponse findUserByUsername(final UserRequest request, final Context context) {
+    try {
+      log.info("Request Data: {}", request);
+      final UserService userService = new UserService(dbInfo);
+      final Users user = userService.findByField(USERNAME, request.getUsername(), Users.class);
       log.info("Response Data: {}", user);
       return ApiResponse.build(Constants.STATUS_000, user, Constants.USER_FOUND);
     } catch (Exception e) {

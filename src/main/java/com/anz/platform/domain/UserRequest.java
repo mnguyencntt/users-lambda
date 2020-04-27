@@ -49,7 +49,7 @@ public class UserRequest {
 
   public Users buildUsers() throws IllegalAccessException, InvocationTargetException {
     final Users user = new Users();
-    BeanUtils.copyProperties(this, user);
+    BeanUtils.copyProperties(user, this);
     user.setId(ObjectUtils.isEmpty(this.getUserId()) ? UUID.randomUUID().toString() : this.getUserId());
     user.setBaseAddress(JsonUtils.toJson(baseAddress));
     user.setBillingAddress(JsonUtils.toJson(billingAddress));
