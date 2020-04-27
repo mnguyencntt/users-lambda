@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import com.amazonaws.services.lambda.runtime.Context;
-import com.anz.platform.config.AppConfig;
 import com.anz.platform.domain.ApiResponse;
 import com.anz.platform.domain.DbInfo;
 import com.anz.platform.domain.UserRequest;
@@ -19,8 +18,11 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Setter
 public class UserFunction {
-  private AppConfig appConfig = new AppConfig();
-  private DbInfo dbInfo = appConfig.getDbInfo();
+  private DbInfo dbInfo;
+
+  public UserFunction(final DbInfo dbInfo) {
+    this.dbInfo = dbInfo;
+  }
 
   /*
    * createUser
@@ -30,8 +32,12 @@ public class UserFunction {
       log.info("Request Data: {}", request);
       final UserService userService = new UserService(dbInfo);
 
+      ApiResponse findUserByUsername = findUserByUsername(request, context);
+      if (Constants.STATUS_000.equalsIgnoreCase(findUserByUsername.getStatus())) {
+        return ApiResponse.build(Constants.STATUS_409, Constants.USER_EXISTING);
+      }
+
       final Users user = request.buildUsers();
-      user.persist();
 
       final Integer updatedCount = userService.persist(user);
       if (updatedCount > 0) {
@@ -55,12 +61,13 @@ public class UserFunction {
       final UserService userService = new UserService(dbInfo);
 
       ApiResponse findUserByUsername = findUserByUsername(request, context);
-      if (ObjectUtils.isNotEmpty(findUserByUsername)) {
-        throw new UserException(Constants.USER_EXISTING);
+      if (!Constants.STATUS_000.equalsIgnoreCase(findUserByUsername.getStatus())) {
+        return ApiResponse.build(Constants.STATUS_404, Constants.USER_NOT_EXISTING);
       }
 
+      Users userExisting = (Users) findUserByUsername.getData();
       final Users user = request.buildUsers();
-      user.persist();
+      user.setId(userExisting.getId());
 
       final Integer updatedCount = userService.updateById(user);
       if (updatedCount > 0) {
@@ -84,6 +91,9 @@ public class UserFunction {
       final UserService userService = new UserService(dbInfo);
       final Users user = userService.findByField(USERNAME, request.getUsername(), Users.class);
       log.info("Response Data: {}", user);
+      if (ObjectUtils.isEmpty(user)) {
+        return ApiResponse.build(Constants.STATUS_404, user, Constants.USER_NOT_FOUND);
+      }
       return ApiResponse.build(Constants.STATUS_000, user, Constants.USER_FOUND);
     } catch (Exception e) {
       log.error(e.getMessage());
@@ -100,6 +110,9 @@ public class UserFunction {
       final UserService userService = new UserService(dbInfo);
       final Users user = userService.findById(request.getUserId(), Users.class);
       log.info("Response Data: {}", user);
+      if (ObjectUtils.isEmpty(user)) {
+        return ApiResponse.build(Constants.STATUS_404, user, Constants.USER_NOT_FOUND);
+      }
       return ApiResponse.build(Constants.STATUS_000, user, Constants.USER_FOUND);
     } catch (Exception e) {
       log.error(e.getMessage());
@@ -116,6 +129,9 @@ public class UserFunction {
       final UserService userService = new UserService(dbInfo);
       final Users user = userService.findByField(USERNAME, request.getUsername(), Users.class);
       log.info("Response Data: {}", user);
+      if (ObjectUtils.isEmpty(user)) {
+        return ApiResponse.build(Constants.STATUS_404, user, Constants.USER_NOT_FOUND);
+      }
       return ApiResponse.build(Constants.STATUS_000, user, Constants.USER_FOUND);
     } catch (Exception e) {
       log.error(e.getMessage());
@@ -133,6 +149,9 @@ public class UserFunction {
       final List<Users> users = userService.findAll(Users.class);
       users.sort(Comparator.comparing(Users::getUpdatedAt));
       log.info("Response Data: {}", users);
+      if (ObjectUtils.isEmpty(users)) {
+        return ApiResponse.build(Constants.STATUS_404, users, Constants.USER_NOT_FOUND);
+      }
       return ApiResponse.build(Constants.STATUS_000, users, Constants.USER_FOUND);
     } catch (Exception e) {
       log.error(e.getMessage());

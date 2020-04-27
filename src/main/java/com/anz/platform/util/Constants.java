@@ -1,10 +1,12 @@
 package com.anz.platform.util;
 
 public final class Constants {
-  public static final String STATUS_000 = "000";
-  public static final String STATUS_101 = "101";
-  public static final String STATUS_301 = "301";
-  public static final String STATUS_999 = "999";
+  public static final String STATUS_000 = "000"; // SUCCESS
+  public static final String STATUS_101 = "101"; // INVALID REQUEST
+  public static final String STATUS_301 = "301"; // ENTITY NOT PROCESSED
+  public static final String STATUS_404 = "404"; // NOT FOUUD
+  public static final String STATUS_409 = "409"; // CONFLICT - RECORD EXISTING
+  public static final String STATUS_999 = "999"; // GENERAL ERROR
 
   public static final String PREFIX_REPORT_NAME = "anz_platform_report_";
   public static final String[] EMAIL_VARS = new String[] {"${reportDate}", "${password}", "${fileName}"};
@@ -59,6 +61,7 @@ public final class Constants {
   public static final String USER_SEND_FAILED = "User sent fail.";
   public static final String USER_FOUND = "User found.";
   public static final String USER_EXISTING = "User existing with username.";
+  public static final String USER_NOT_EXISTING = "User isn't existing with username.";
   public static final String USER_NOT_FOUND = "User not found.";
   public static final String INITIALIZE_CONNECTION = "Initialize connection to MySQL with driver.";
   public static final String SUCCESSFUL_CONNECTION = "Connected to MySQL database. Now try to execute query by QueryRunner.";

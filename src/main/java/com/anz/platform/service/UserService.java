@@ -109,7 +109,7 @@ public class UserService {
     try (final Connection connection = DriverManager.getConnection(dbInfo.getEndpoint(), dbInfo.getUsername(), dbInfo.getPassword())) {
       log.info(Constants.SUCCESSFUL_CONNECTION);
       try {
-        final String updateSQL = String.format("Update %s SET %s WHERE Id=%s", item.getClass().getSimpleName(), item.findFieldValuesJoining("Id"), item.getId());
+        final String updateSQL = String.format("Update %s SET %s WHERE Id='%s'", item.getClass().getSimpleName(), item.findFieldValuesJoining("Id"), item.getId());
         log.info(updateSQL);
         return new QueryRunner().update(connection, updateSQL);
       } finally {

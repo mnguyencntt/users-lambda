@@ -44,7 +44,7 @@ public class UserRequest {
   private AddressInfo deliveryAddress;
 
   // Function-Type
-  private UserFunctionType functionType; // SEND - UPDATE - FINDID - FINDALL - DELETE
+  private UserFunctionType functionType;
   private Map<String, String> additionalFields;
 
   public Users buildUsers() throws IllegalAccessException, InvocationTargetException {
@@ -57,6 +57,7 @@ public class UserRequest {
     user.setRequest(JsonUtils.toJson(this));
     user.setLastLogin(DatetimeUtils.formatDateTime(LocalDateTime.now(), DDMMYYYY_HHMMSS));
     user.setUserType(this.getUserType().name());
+    user.persist();
     return user;
   }
 

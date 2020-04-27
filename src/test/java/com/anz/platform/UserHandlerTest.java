@@ -1,69 +1,117 @@
 package com.anz.platform;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import java.io.File;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.List;
-import java.util.Map;
-import org.apache.commons.dbutils.DbUtils;
-import org.apache.commons.dbutils.QueryRunner;
-import org.apache.commons.dbutils.handlers.MapListHandler;
-import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
 import com.anz.platform.base.BaseTest;
 import com.anz.platform.config.AppConfigMock;
 import com.anz.platform.domain.ApiResponse;
 import com.anz.platform.domain.DbInfo;
 import com.anz.platform.domain.UserRequest;
+import com.anz.platform.enumeration.UserFunctionType;
 import com.anz.platform.util.JsonUtils;
-import com.anz.platform.util.ObjectUtils;
- 
-@Ignore
+
 public class UserHandlerTest extends BaseTest {
-  private final UserHandler userHandler = new UserHandler();
+  private final DbInfo dbInfo = new AppConfigMock().getDbInfo();
+  private final UserHandler userHandler = new UserHandler(dbInfo);
+
+  private final String jsonRequesst =
+      "{ \"username\": \"testuser1\", \"password\": \"testpassword1\", \"name\": \"MinhNguyen\", \"dateOfBirth\": \"01/01/1991\", \"gender\": \"Male\", \"isActivated\": \"TRUE\", \"userType\": \"SELLER\", \"imageAvatarUrl\": \"https://www.google.com/MinhNguyenAvatar.png\", \"functionType\": \"CREATE\"}";
 
   @Test
-  public void loadSqlFile() throws Exception {
-    File file = getFileFromResources("file/users.sql");
-    String printFile = printFile(file);
-    // System.out.println(printFile);
-    assertTrue(ObjectUtils.isNotEmpty(printFile));
-  }
+  public void testCreateUser_FAILED_Conflict() {
+    final UserRequest request = JsonUtils.toObject(jsonRequesst, UserRequest.class);
+    request.setUsername("testuser1");
+    request.setFunctionType(UserFunctionType.CREATE);
 
-  @Test
-  public void testUserDbConnection() throws SQLException, ClassNotFoundException {
-    final DbInfo dbInfo = new AppConfigMock().getDbInfo();
-
-    Class.forName(dbInfo.getSqlDriver());
-    final QueryRunner run = new QueryRunner();
-    final Connection conn = DriverManager.getConnection(dbInfo.getEndpoint(), dbInfo.getUsername(), dbInfo.getPassword());
-    try {
-      List<Map<String, Object>> maps = run.query(conn, "SELECT * FROM users", new MapListHandler());
-      // System.out.println(maps);
-      assertEquals(1, maps.size());
-    } finally {
-      DbUtils.close(conn);
-    }
-  }
-
-  @Test
-  public void testUser() {
-    String jsonRequesst = "{\n" + 
-        "  \"username\": \"testuser1\",\n" + 
-        "  \"password\": \"testpassword1\",\n" + 
-        "  \"name\": \"MinhNguyen\",\n" + 
-        "  \"dateOfBirth\": \"01/01/1991\",\n" + 
-        "  \"gender\": \"Male\",\n" + 
-        "  \"isActivated\": \"TRUE\",\n" + 
-        "  \"userType\": \"SELLER\",\n" + 
-        "  \"imageAvatarUrl\": \"https://www.google.com/MinhNguyenAvatar.png\",\n" + 
-        "  \"functionType\": \"CREATE\"\n" + 
-        "}";
-    final UserRequest request  = JsonUtils.toObject(jsonRequesst, UserRequest.class);
     ApiResponse handleRequest = userHandler.handleRequest(request, createContext());
     System.out.println(handleRequest.toString());
+    assertEquals("409", handleRequest.getStatus());
+  }
+
+  @Test
+  public void testCreateUser_SUCCESS() {
+    final UserRequest request = JsonUtils.toObject(jsonRequesst, UserRequest.class);
+    request.setUsername("testuser2");
+    request.setFunctionType(UserFunctionType.CREATE);
+
+    ApiResponse handleRequest = userHandler.handleRequest(request, createContext());
+    System.out.println(handleRequest.toString());
+    assertEquals("000", handleRequest.getStatus());
+  }
+
+  @Test
+  public void testUpdateUser_SUCCESS() {
+    final UserRequest request = JsonUtils.toObject(jsonRequesst, UserRequest.class);
+    request.setUserId("12345");
+    request.setUsername("testuser1");
+    request.setFunctionType(UserFunctionType.UPDATE);
+
+    ApiResponse handleRequest = userHandler.handleRequest(request, createContext());
+    System.out.println(handleRequest.toString());
+    assertEquals("000", handleRequest.getStatus());
+  }
+
+  @Test
+  public void testUpdateUser_FAILED_NotFound() {
+    final UserRequest request = JsonUtils.toObject(jsonRequesst, UserRequest.class);
+    request.setUsername("testuser2");
+    request.setFunctionType(UserFunctionType.UPDATE);
+
+    ApiResponse handleRequest = userHandler.handleRequest(request, createContext());
+    System.out.println(handleRequest.toString());
+    assertEquals("404", handleRequest.getStatus());
+  }
+
+  @Test
+  public void testFindByUsername_NotFound() {
+    final UserRequest request = JsonUtils.toObject(jsonRequesst, UserRequest.class);
+    request.setUsername("testuser2");
+    request.setFunctionType(UserFunctionType.FINDUSERNAME);
+
+    ApiResponse handleRequest = userHandler.handleRequest(request, createContext());
+    System.out.println(handleRequest.toString());
+    assertEquals("404", handleRequest.getStatus());
+  }
+
+  @Test
+  public void testFindByUsername() {
+    final UserRequest request = JsonUtils.toObject(jsonRequesst, UserRequest.class);
+    request.setUsername("testuser1");
+    request.setFunctionType(UserFunctionType.FINDUSERNAME);
+
+    ApiResponse handleRequest = userHandler.handleRequest(request, createContext());
+    System.out.println(handleRequest.toString());
+    assertEquals("000", handleRequest.getStatus());
+  }
+
+  @Test
+  public void testAuthenticate() {
+    final UserRequest request = JsonUtils.toObject(jsonRequesst, UserRequest.class);
+    request.setFunctionType(UserFunctionType.AUTHENTICATE);
+
+    ApiResponse handleRequest = userHandler.handleRequest(request, createContext());
+    System.out.println(handleRequest.toString());
+    assertEquals("000", handleRequest.getStatus());
+  }
+
+  @Test
+  public void testFindUserById() {
+    final UserRequest request = JsonUtils.toObject(jsonRequesst, UserRequest.class);
+    request.setUserId("12345");
+    request.setFunctionType(UserFunctionType.FINDID);
+
+    ApiResponse handleRequest = userHandler.handleRequest(request, createContext());
+    System.out.println(handleRequest.toString());
+    assertEquals("000", handleRequest.getStatus());
+  }
+
+  @Test
+  public void testFindAllUsers() {
+    final UserRequest request = JsonUtils.toObject(jsonRequesst, UserRequest.class);
+    request.setFunctionType(UserFunctionType.FINDALL);
+
+    ApiResponse handleRequest = userHandler.handleRequest(request, createContext());
+    System.out.println(handleRequest.toString());
+    assertEquals("000", handleRequest.getStatus());
   }
 }

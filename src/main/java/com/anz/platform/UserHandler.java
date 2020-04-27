@@ -1,28 +1,38 @@
 package com.anz.platform;
 
-import static com.anz.platform.util.Constants.USER_FUNCTION_NOT_SUPPORT;
 import static com.anz.platform.util.Constants.STATUS_101;
 import static com.anz.platform.util.Constants.STATUS_999;
+import static com.anz.platform.util.Constants.USER_FUNCTION_NOT_SUPPORT;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
+import com.anz.platform.config.AppConfig;
 import com.anz.platform.domain.ApiResponse;
+import com.anz.platform.domain.DbInfo;
 import com.anz.platform.domain.UserRequest;
 import com.anz.platform.enumeration.UserFunctionType;
 import com.anz.platform.exception.InvalidRequestException;
 import com.anz.platform.service.UserFunction;
 import com.anz.platform.util.Constants;
 import com.anz.platform.util.ObjectUtils;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Setter
+@NoArgsConstructor
 public class UserHandler implements RequestHandler<UserRequest, ApiResponse> {
+  private DbInfo dbInfo = new AppConfig().getDbInfo();
+
+  public UserHandler(final DbInfo dbInfo) {
+    this.dbInfo = dbInfo;
+  }
+
   public ApiResponse handleRequest(final UserRequest request, final Context context) {
     try {
       if (ObjectUtils.isEmpty(request.getFunctionType())) {
         throw new InvalidRequestException(String.format(Constants.NOT_EMPTY, "functionType"));
       }
 
-      final UserFunction function = new UserFunction();
+      final UserFunction function = new UserFunction(dbInfo);
       if (UserFunctionType.CREATE.equals(request.getFunctionType())) {
         return function.createUser(request, context);
       } else if (UserFunctionType.UPDATE.equals(request.getFunctionType())) {
