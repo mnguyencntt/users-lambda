@@ -92,7 +92,7 @@ public class UserFunction {
       final Users user = userService.findByField(USERNAME, request.getUsername(), Users.class);
       log.info("Response Data: {}", user);
       if (ObjectUtils.isEmpty(user)) {
-        return ApiResponse.build(Constants.STATUS_404, user, Constants.USER_NOT_FOUND);
+        return ApiResponse.build(Constants.STATUS_404, null, Constants.USER_NOT_FOUND);
       }
       return ApiResponse.build(Constants.STATUS_000, user, Constants.USER_FOUND);
     } catch (Exception e) {
@@ -111,7 +111,7 @@ public class UserFunction {
       final Users user = userService.findById(request.getUserId(), Users.class);
       log.info("Response Data: {}", user);
       if (ObjectUtils.isEmpty(user)) {
-        return ApiResponse.build(Constants.STATUS_404, user, Constants.USER_NOT_FOUND);
+        return ApiResponse.build(Constants.STATUS_404, null, Constants.USER_NOT_FOUND);
       }
       return ApiResponse.build(Constants.STATUS_000, user, Constants.USER_FOUND);
     } catch (Exception e) {
@@ -130,7 +130,7 @@ public class UserFunction {
       final Users user = userService.findByField(USERNAME, request.getUsername(), Users.class);
       log.info("Response Data: {}", user);
       if (ObjectUtils.isEmpty(user)) {
-        return ApiResponse.build(Constants.STATUS_404, user, Constants.USER_NOT_FOUND);
+        return ApiResponse.build(Constants.STATUS_404, null, Constants.USER_NOT_FOUND);
       }
       return ApiResponse.build(Constants.STATUS_000, user, Constants.USER_FOUND);
     } catch (Exception e) {
@@ -150,7 +150,7 @@ public class UserFunction {
       users.sort(Comparator.comparing(Users::getUpdatedAt));
       log.info("Response Data: {}", users);
       if (ObjectUtils.isEmpty(users)) {
-        return ApiResponse.build(Constants.STATUS_404, users, Constants.USER_NOT_FOUND);
+        return ApiResponse.build(Constants.STATUS_404, Collections.emptyList(), Constants.USER_NOT_FOUND);
       }
       return ApiResponse.build(Constants.STATUS_000, users, Constants.USER_FOUND);
     } catch (Exception e) {
