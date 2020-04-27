@@ -30,7 +30,7 @@ public class UserService {
       log.info(Constants.SUCCESSFUL_CONNECTION);
       final ResultSetHandler<List<T>> resultHandler = new BeanListHandler<>(clazz);
       try {
-        final String selectAll = "SELECT * FROM Users";
+        final String selectAll = String.format("SELECT * FROM %s", clazz.getSimpleName());
         final List<T> items = new QueryRunner().query(connection, selectAll, resultHandler);
         log.info("Found {} Items", items.size());
         return items;
@@ -49,7 +49,7 @@ public class UserService {
       log.info(Constants.SUCCESSFUL_CONNECTION);
       final ResultSetHandler<T> resultHandler = new BeanHandler<>(clazz);
       try {
-        final String selectById = "SELECT * FROM Users WHERE id = ?";
+        final String selectById = String.format("SELECT * FROM Users WHERE id = ?", clazz.getSimpleName());
         T query = new QueryRunner().query(connection, selectById, resultHandler, id);
         log.info("Found Item by '{}'", id);
         return query;
@@ -68,7 +68,7 @@ public class UserService {
       log.info(Constants.SUCCESSFUL_CONNECTION);
       final ResultSetHandler<T> resultHandler = new BeanHandler<>(clazz);
       try {
-        final String selectByField = String.format("SELECT * FROM Users WHERE %s = ?", fieldName);
+        final String selectByField = String.format("SELECT * FROM %s WHERE %s = ?", clazz.getSimpleName(), fieldName);
         T query = new QueryRunner().query(connection, selectByField, resultHandler, fieldValue);
         log.info("Found Item by '{}'", fieldValue);
         return query;
