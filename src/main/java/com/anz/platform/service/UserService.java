@@ -49,7 +49,7 @@ public class UserService {
       log.info(Constants.SUCCESSFUL_CONNECTION);
       final ResultSetHandler<T> resultHandler = new BeanHandler<>(clazz);
       try {
-        final String selectById = String.format("SELECT * FROM Users WHERE id = ?", clazz.getSimpleName());
+        final String selectById = String.format("SELECT * FROM %s WHERE id = ?", clazz.getSimpleName());
         T query = new QueryRunner().query(connection, selectById, resultHandler, id);
         log.info("Found Item by '{}'", id);
         return query;
