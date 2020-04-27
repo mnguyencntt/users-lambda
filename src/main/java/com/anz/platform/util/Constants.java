@@ -58,8 +58,8 @@ public final class Constants {
   public static final String USER_FUNCTION_NOT_SUPPORT = "UserFunctionType '%s' does not support.";
   public static final String USER_PERSIST_SUCCESS = "User persisted success.";
   public static final String USER_PERSIST_FAILED = "User persisted fail.";
-  public static final String USER_SEND_SUCCESS = "User sent success.";
-  public static final String USER_SEND_FAILED = "User sent fail.";
+  public static final String USER_UPDATE_SUCCESS = "User update success.";
+  public static final String USER_UPDATE_FAILED = "User update fail.";
   public static final String USER_FOUND = "User found.";
   public static final String USER_NOT_FOUND = "User not found.";
   public static final String USER_EXISTING = "User existing with username.";

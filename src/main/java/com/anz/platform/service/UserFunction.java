@@ -42,7 +42,7 @@ public class UserFunction {
       final Integer updatedCount = userService.persist(user);
       if (updatedCount > 0) {
         log.info("Response Data: {}", user);
-        return ApiResponse.build(Constants.STATUS_000, user);
+        return ApiResponse.build(Constants.STATUS_000, user, Constants.USER_PERSIST_SUCCESS);
       } else {
         throw new UserException(Constants.USER_PERSIST_FAILED);
       }
@@ -72,7 +72,7 @@ public class UserFunction {
       final Integer updatedCount = userService.updateById(user);
       if (updatedCount > 0) {
         log.info("Response Data: {}", user);
-        return ApiResponse.build(Constants.STATUS_000, user);
+        return ApiResponse.build(Constants.STATUS_000, user, Constants.USER_UPDATE_SUCCESS);
       } else {
         throw new UserException(Constants.USER_PERSIST_FAILED);
       }
