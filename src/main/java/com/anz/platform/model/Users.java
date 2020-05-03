@@ -1,10 +1,8 @@
 package com.anz.platform.model;
 
 import static com.anz.platform.util.Constants.ANONYMOUS;
-import static com.anz.platform.util.Constants.DDMMYYYY_HHMMSS;
 import java.time.LocalDateTime;
 import com.anz.platform.model.base.BaseObject;
-import com.anz.platform.util.DatetimeUtils;
 import com.anz.platform.util.ObjectUtils;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
