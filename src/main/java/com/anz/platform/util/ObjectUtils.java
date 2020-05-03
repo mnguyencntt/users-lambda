@@ -11,8 +11,7 @@ import java.util.function.IntFunction;
 import java.util.stream.Collectors;
 
 public final class ObjectUtils {
-
-  private ObjectUtils() {
+  ObjectUtils() {
     throw new UnsupportedOperationException();
   }
 

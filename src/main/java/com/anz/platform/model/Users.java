@@ -6,7 +6,6 @@ import com.anz.platform.model.base.BaseObject;
 import com.anz.platform.util.ObjectUtils;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,7 +17,7 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper = false)
+// @EqualsAndHashCode(callSuper = false)
 public class Users extends BaseObject {
   public static final String USERNAME = "username";
 

@@ -15,8 +15,7 @@ import java.util.Date;
 import java.util.TimeZone;
 
 public final class DatetimeUtils {
-
-  private DatetimeUtils() {
+  DatetimeUtils() {
     throw new UnsupportedOperationException();
   }
 

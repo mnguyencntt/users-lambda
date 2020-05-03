@@ -1,12 +1,26 @@
 package com.anz.platform.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.List;
 import org.junit.jupiter.api.Test;
+import com.anz.platform.util.Constants;
 
 public class UsersTest {
   private static final int expectedLength = 18;
+
+  @Test
+  public void testUserBuilder() {
+    Users user = Users.builder().baseAddress("baseAddress").billingAddress("billingAddress").createdAt("createdAt").createdBy("createdBy").dateOfBirth("dateOfBirth").deliveryAddress("deliveryAddress")
+        .gender("gender").imageAvatarUrl("imageAvatarUrl").id("id").isActivated("true").lastLogin("lastLogin").name("name").password("password").request("request").updatedAt("updatedAt")
+        .updatedBy("updatedBy").username("username").userType("userType").build();
+    assertNotNull(user);
+    String userStr = Users.builder().baseAddress("baseAddress").billingAddress("billingAddress").createdAt("createdAt").createdBy("createdBy").dateOfBirth("dateOfBirth")
+        .deliveryAddress("deliveryAddress").gender("gender").imageAvatarUrl("imageAvatarUrl").id("id").isActivated("true").lastLogin("lastLogin").name("name").password("password").request("request")
+        .updatedAt("updatedAt").updatedBy("updatedBy").username("username").userType("userType").toString();
+    assertNotNull(userStr);
+  }
 
   @Test
   public void testUser() {
@@ -14,6 +28,13 @@ public class UsersTest {
     user.setId("12345");
     user.setUsername("testuser");
     user.setPassword("testpassword");
+
+    user.persist("");
+    user.update("");
+    user.persist(Constants.ANONYMOUS);
+    user.update(Constants.ANONYMOUS);
+    assertEquals(user.hashCode(), user.hashCode());
+    assertTrue(user.equals(user));
 
     //
     String fieldJoining = user.findFieldsJoining();

@@ -1,8 +1,10 @@
 package com.anz.platform;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.jupiter.api.Test;
 import com.anz.platform.base.BaseTest;
+import com.anz.platform.config.AppConfig;
 import com.anz.platform.config.AppConfigMock;
 import com.anz.platform.domain.ApiResponse;
 import com.anz.platform.domain.DbInfo;
@@ -16,6 +18,39 @@ public class UserHandlerTest extends BaseTest {
 
   private final String jsonRequesst =
       "{ \"username\": \"testuser1\", \"password\": \"testpassword1\", \"name\": \"MinhNguyen\", \"dateOfBirth\": \"01/01/1991\", \"gender\": \"Male\", \"isActivated\": \"TRUE\", \"userType\": \"SELLER\", \"imageAvatarUrl\": \"https://www.google.com/MinhNguyenAvatar.png\", \"functionType\": \"CREATE\"}";
+
+  @Test
+  public void testCreateUser_EMPTY() {
+    UserHandler localUserHandler = new UserHandler();
+    localUserHandler.setDbInfo(dbInfo);
+    assertNotNull(localUserHandler);
+
+    AppConfig appConfig = new AppConfig();
+    appConfig.setDbInfo(dbInfo);
+    assertNotNull(appConfig);
+  }
+
+  @Test
+  public void testCreateUser_FAILED_FunctionType_EMPTY() {
+    final UserRequest request = JsonUtils.toObject(jsonRequesst, UserRequest.class);
+    request.setUsername("testuser1");
+    request.setFunctionType(null);
+
+    ApiResponse handleRequest = userHandler.handleRequest(request, createContext());
+    System.out.println(handleRequest.toString());
+    assertEquals("101", handleRequest.getStatus());
+  }
+
+  @Test
+  public void testCreateUser_FAILED_FunctionType_DELETE() {
+    final UserRequest request = JsonUtils.toObject(jsonRequesst, UserRequest.class);
+    request.setUsername("testuser1");
+    request.setFunctionType(UserFunctionType.DELETE);
+
+    ApiResponse handleRequest = userHandler.handleRequest(request, createContext());
+    System.out.println(handleRequest.toString());
+    assertEquals("101", handleRequest.getStatus());
+  }
 
   @Test
   public void testCreateUser_FAILED_Conflict() {

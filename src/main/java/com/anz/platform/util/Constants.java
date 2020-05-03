@@ -67,7 +67,7 @@ public final class Constants {
   public static final String INITIALIZE_CONNECTION = "Initialize connection to MySQL with driver.";
   public static final String SUCCESSFUL_CONNECTION = "Connected to MySQL database. Now try to execute query by QueryRunner.";
 
-  private Constants() {
+  Constants() {
     throw new UnsupportedOperationException();
   }
 }
