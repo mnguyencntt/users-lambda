@@ -17,7 +17,7 @@ public class UserServiceTest extends BaseTest {
   public void testFindAllUsers() {
     List<Users> users = userService.findAll(Users.class);
     // System.out.println(users);
-    assertEquals(1, users.size());
+    assertEquals(2, users.size());
     assertEquals("12345", users.get(0).getId());
   }
 

@@ -32,4 +32,8 @@ INSERT INTO
 Users(id,username,password,name,dateOfBirth,gender,isActivated,userType,lastLogin,imageAvatarUrl,request,baseAddress,billingAddress,deliveryAddress,createdAt,createdBy,updatedAt,updatedBy) 
 VALUES ('12345', 'testuser1', 'testpassword1', 'MinhNguyen', '01/01/1991', 'Male', 'TRUE', 'BUYER', '24-04-2020 00:35:17', 'https://www.google.com/MinhNguyenAvatar.png', 'request-json-format', '', '', '', '24-04-2020 00:35:17', 'Anonymous', '24-04-2020 00:35:17', 'Anonymous');
 
+INSERT INTO 
+Users(id,username,password,name,dateOfBirth,gender,isActivated,userType,lastLogin,imageAvatarUrl,request,baseAddress,billingAddress,deliveryAddress,createdAt,createdBy,updatedAt,updatedBy) 
+VALUES ('56789', 'selleruser', 'sellerpassword', 'MinhNguyen', '01/01/1991', 'Male', 'TRUE', 'SELLER', '24-04-2020 00:35:17', 'https://www.google.com/MinhNguyenAvatar.png', 'request-json-format', '', '', '', '24-04-2020 00:35:17', 'Anonymous', '24-04-2020 00:35:17', 'Anonymous');
+
 SELECT * FROM `Users`;
