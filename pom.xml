@@ -246,7 +246,7 @@
 										<limit>
 											<counter>INSTRUCTION</counter>
 											<value>COVEREDRATIO</value>
-											<minimum>80%</minimum>
+											<minimum>65%</minimum>
 										</limit>
 									</limits>
 								</rule>
