@@ -31,18 +31,18 @@ public final class DatetimeUtils {
     return ZonedDateTime.now(ZoneId.of(ZONEID_SINGAPORE));
   }
 
-  public static String formatByTimezone(final String strDateTime, final String formatInput, final String formatOutput) {
-    DateFormat df1 = new SimpleDateFormat(formatInput);
-    df1.setTimeZone(TimeZone.getTimeZone(GMT));
-    DateFormat df2 = new SimpleDateFormat(formatOutput);
-    df2.setTimeZone(TimeZone.getTimeZone(GMT));
-    try {
-      Date date = df1.parse(strDateTime);
-      return df2.format(date);
-    } catch (ParseException e) {
-      throw new IllegalArgumentException(e.getMessage());
-    }
-  }
+//  public static String formatByTimezone(final String strDateTime, final String formatInput, final String formatOutput) {
+//    DateFormat df1 = new SimpleDateFormat(formatInput);
+//    df1.setTimeZone(TimeZone.getTimeZone(GMT));
+//    DateFormat df2 = new SimpleDateFormat(formatOutput);
+//    df2.setTimeZone(TimeZone.getTimeZone(GMT));
+//    try {
+//      Date date = df1.parse(strDateTime);
+//      return df2.format(date);
+//    } catch (ParseException e) {
+//      throw new IllegalArgumentException(e.getMessage());
+//    }
+//  }
 
   public static Timestamp convertStrToTimestamp(final String strDateTime, final String format) {
     DateFormat df = new SimpleDateFormat(format);
