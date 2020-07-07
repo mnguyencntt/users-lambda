@@ -13,12 +13,10 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.TimeZone;
+import lombok.experimental.UtilityClass;
 
-public final class DatetimeUtils {
-  DatetimeUtils() {
-    throw new UnsupportedOperationException();
-  }
-
+@UtilityClass
+public class DatetimeUtils {
   public static LocalDateTime nowLocalDateTime() {
     return LocalDateTime.now(ZoneId.of(ZONEID_SINGAPORE));
   }

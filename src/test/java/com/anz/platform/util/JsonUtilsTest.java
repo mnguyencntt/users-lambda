@@ -14,7 +14,7 @@ import lombok.Data;
 
 public class JsonUtilsTest {
   @Test
-  public void testCallPrivateConstructor() throws Exception {
+  public void testConstructor() {
     Assertions.assertThrows(InvocationTargetException.class, () -> {
       Constructor<JsonUtils> c = JsonUtils.class.getDeclaredConstructor();
       c.setAccessible(true);

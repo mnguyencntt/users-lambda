@@ -2,6 +2,8 @@ package com.anz.platform.util;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
@@ -11,8 +13,10 @@ import org.junit.jupiter.api.Test;
 public class DatetimeUtilsTest {
   @Test
   public void testConstructor() {
-    Assertions.assertThrows(UnsupportedOperationException.class, () -> {
-      new DatetimeUtils();
+    Assertions.assertThrows(InvocationTargetException.class, () -> {
+      Constructor<DatetimeUtils> c = DatetimeUtils.class.getDeclaredConstructor();
+      c.setAccessible(true);
+      c.newInstance();
     });
   }
 

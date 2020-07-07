@@ -8,13 +8,12 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.IntFunction;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import lombok.experimental.UtilityClass;
 
-public final class ObjectUtils {
-  ObjectUtils() {
-    throw new UnsupportedOperationException();
-  }
-
+@UtilityClass
+public class ObjectUtils {
   public static boolean isNotEmpty(final Object obj) {
     return !isEmpty(obj);
   }
@@ -56,11 +55,27 @@ public final class ObjectUtils {
     }
   }
 
-  public static <T, U> List<U> convertList(final List<T> from, final Function<T, U> func) {
+  public static boolean isBlank(final String cs) {
+    if (cs == null) {
+      return true;
+    }
+    final int strLen = cs.length();
+    if (strLen == 0) {
+      return true;
+    }
+    for (int i = 0; i < strLen; i++) {
+      if (!Character.isWhitespace(cs.charAt(i))) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  public static <T, U> List<U> convertList(List<T> from, Function<T, U> func) {
     return from.stream().map(func).collect(Collectors.toList());
   }
 
-  public static <T, U> U[] convertArray(final T[] from, final Function<T, U> func, final IntFunction<U[]> generator) {
+  public static <T, U> U[] convertArray(T[] from, Function<T, U> func, IntFunction<U[]> generator) {
     return Arrays.stream(from).map(func).toArray(generator);
   }
 
@@ -75,7 +90,47 @@ public final class ObjectUtils {
     if (ObjectUtils.isEmpty(input) || ObjectUtils.isEmpty(strs)) {
       return Boolean.FALSE;
     }
-    return Arrays.stream(strs).anyMatch(p -> p.equalsIgnoreCase(input));
+    return Arrays.stream(strs).filter(ObjectUtils::isNotEmpty).anyMatch(p -> p.equalsIgnoreCase(input));
   }
 
+  public static Boolean isArrStartWith(final String input, final String... strs) {
+    if (ObjectUtils.isEmpty(input) || ObjectUtils.isEmpty(strs)) {
+      return Boolean.FALSE;
+    }
+    return Arrays.stream(strs).filter(ObjectUtils::isNotEmpty).anyMatch(p -> p.startsWith(input));
+  }
+
+  public static Boolean isListContain(final String input, final List<String> strs) {
+    if (ObjectUtils.isEmpty(input) || ObjectUtils.isEmpty(strs)) {
+      return Boolean.FALSE;
+    }
+    return strs.stream().filter(ObjectUtils::isNotEmpty).anyMatch(p -> p.equalsIgnoreCase(input));
+  }
+
+  public static Boolean isInputStartWith(final String input, final String... strs) {
+    if (ObjectUtils.isEmpty(input) || ObjectUtils.isEmpty(strs)) {
+      return Boolean.FALSE;
+    }
+    return Arrays.stream(strs).filter(ObjectUtils::isNotEmpty).anyMatch(input::startsWith);
+  }
+
+  public boolean equals(final String first, final String second) {
+    return equals(first, second, true);
+  }
+
+  public boolean equals(final String first, final String second, final boolean isIgnoredCase) {
+    return isIgnoredCase ? first.equalsIgnoreCase(second) : first.equals(second);
+  }
+
+  public String toStringBoolean(final Boolean object) {
+    return object == null ? Boolean.FALSE.toString() : object.toString();
+  }
+
+  public String toStringBoolean(final String object) {
+    return isEmpty(object) ? Boolean.FALSE.toString() : Boolean.valueOf(object).toString();
+  }
+
+  public boolean contains(final String source, final String wantedStr) {
+    return Pattern.compile(Pattern.quote(wantedStr), Pattern.CASE_INSENSITIVE).matcher(source).find();
+  }
 }

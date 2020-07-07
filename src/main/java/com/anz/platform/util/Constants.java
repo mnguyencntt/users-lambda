@@ -1,6 +1,9 @@
 package com.anz.platform.util;
 
-public final class Constants {
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
+public class Constants {
   public static final String STATUS_000 = "000"; // SUCCESS
   public static final String STATUS_101 = "101"; // INVALID REQUEST
   public static final String STATUS_301 = "301"; // ENTITY NOT PROCESSED
@@ -66,8 +69,4 @@ public final class Constants {
   public static final String USER_NOT_EXISTING = "User isn't existing with username.";
   public static final String INITIALIZE_CONNECTION = "Initialize connection to MySQL with driver.";
   public static final String SUCCESSFUL_CONNECTION = "Connected to MySQL database. Now try to execute query by QueryRunner.";
-
-  Constants() {
-    throw new UnsupportedOperationException();
-  }
 }
