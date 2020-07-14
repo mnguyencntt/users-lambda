@@ -38,7 +38,7 @@ public class UserHandlerTest extends BaseTest {
 
     ApiResponse handleRequest = userHandler.handleRequest(request, createContext());
     System.out.println(handleRequest.toString());
-    assertEquals("101", handleRequest.getStatus());
+    assertEquals("400", handleRequest.getStatus());
   }
 
   @Test
@@ -49,7 +49,7 @@ public class UserHandlerTest extends BaseTest {
 
     ApiResponse handleRequest = userHandler.handleRequest(request, createContext());
     System.out.println(handleRequest.toString());
-    assertEquals("101", handleRequest.getStatus());
+    assertEquals("400", handleRequest.getStatus());
   }
 
   @Test

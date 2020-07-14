@@ -5,10 +5,10 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class Constants {
   public static final String STATUS_000 = "000"; // SUCCESS
-  public static final String STATUS_101 = "101"; // INVALID REQUEST
-  public static final String STATUS_301 = "301"; // ENTITY NOT PROCESSED
+  public static final String STATUS_400 = "400"; // INVALID REQUEST
   public static final String STATUS_404 = "404"; // NOT FOUUD
   public static final String STATUS_409 = "409"; // CONFLICT - RECORD EXISTING
+  public static final String STATUS_422 = "422"; // ENTITY NOT PROCESSED
   public static final String STATUS_999 = "999"; // GENERAL ERROR
 
   public static final String PREFIX_REPORT_NAME = "anz_platform_report_";
@@ -34,8 +34,10 @@ public class Constants {
   public static final String QUESTION = "?";
   public static final String COMMA = ",";
   public static final String EQUAL = "=";
+  public static final String QUOTE = "'";
   public static final String QUOTES = "\"";
   public static final String COLON = ":";
+  public static final String STAR = "*";
   public static final String SEMICOLON = ";";
   public static final String UNDERSCORE = "_";
   public static final String NEW_LINE_SEPARATOR = "\n";
@@ -69,4 +71,5 @@ public class Constants {
   public static final String USER_NOT_EXISTING = "User isn't existing with username.";
   public static final String INITIALIZE_CONNECTION = "Initialize connection to MySQL with driver.";
   public static final String SUCCESSFUL_CONNECTION = "Connected to MySQL database. Now try to execute query by QueryRunner.";
+  public static final String CLOSE_CONNECTION = "Close connection to SQL with driver.";
 }

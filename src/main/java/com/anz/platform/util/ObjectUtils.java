@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.IntFunction;
+import java.util.function.Predicate;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import lombok.experimental.UtilityClass;
@@ -86,6 +87,13 @@ public class ObjectUtils {
     return str.substring(0, 1).toUpperCase() + str.substring(1);
   }
 
+  public static String lowerizeFirstLetter(final String str) {
+    if (ObjectUtils.isEmpty(str)) {
+      return Constants.EMPTY;
+    }
+    return str.substring(0, 1).toLowerCase() + str.substring(1);
+  }
+
   public static Boolean isArrContain(final String input, final String... strs) {
     if (ObjectUtils.isEmpty(input) || ObjectUtils.isEmpty(strs)) {
       return Boolean.FALSE;
@@ -132,5 +140,9 @@ public class ObjectUtils {
 
   public boolean contains(final String source, final String wantedStr) {
     return Pattern.compile(Pattern.quote(wantedStr), Pattern.CASE_INSENSITIVE).matcher(source).find();
+  }
+
+  public static <T> Predicate<T> not(Predicate<T> t) {
+    return t.negate();
   }
 }

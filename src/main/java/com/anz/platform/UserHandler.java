@@ -1,6 +1,6 @@
 package com.anz.platform;
 
-import static com.anz.platform.util.Constants.STATUS_101;
+import static com.anz.platform.util.Constants.STATUS_400;
 import static com.anz.platform.util.Constants.STATUS_999;
 import static com.anz.platform.util.Constants.USER_FUNCTION_NOT_SUPPORT;
 import com.amazonaws.services.lambda.runtime.Context;
@@ -49,7 +49,7 @@ public class UserHandler implements RequestHandler<UserRequest, ApiResponse> {
         throw new InvalidRequestException(String.format(USER_FUNCTION_NOT_SUPPORT, request.getFunctionType()));
       }
     } catch (InvalidRequestException e) {
-      return ApiResponse.build(STATUS_101, null, e.getMessage());
+      return ApiResponse.build(STATUS_400, null, e.getMessage());
     } catch (Exception e) {
       return ApiResponse.build(STATUS_999, null, e.getMessage());
     }

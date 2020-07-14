@@ -1,9 +1,6 @@
 package com.anz.platform.exception;
 
-import com.anz.platform.exception.base.UnknownException;
-
-public class InvalidRequestException extends UnknownException {
-
+public class InvalidRequestException extends RuntimeException {
   private static final long serialVersionUID = 1L;
 
   public InvalidRequestException(final String errorMessage) {
@@ -12,6 +9,5 @@ public class InvalidRequestException extends UnknownException {
 
   public InvalidRequestException(final String errorMessage, final String key) {
     super(errorMessage);
-    this.setKey(key);
   }
 }

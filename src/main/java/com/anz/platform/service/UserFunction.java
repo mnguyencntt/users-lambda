@@ -28,17 +28,13 @@ public class UserFunction {
    * createUser
    */
   public ApiResponse createUser(final UserRequest request, final Context context) {
-    try {
+    try (final UserService userService = new UserService(dbInfo)) {
       log.info("Request Data: {}", request);
-      final UserService userService = new UserService(dbInfo);
-
       ApiResponse findUserByUsername = findUserByUsername(request, context);
       if (Constants.STATUS_000.equalsIgnoreCase(findUserByUsername.getStatus())) {
         return ApiResponse.build(Constants.STATUS_409, Constants.USER_EXISTING);
       }
-
       final Users user = request.buildUsers();
-
       final Integer updatedCount = userService.persist(user);
       if (updatedCount > 0) {
         log.info("Response Data: {}", user);
@@ -56,10 +52,8 @@ public class UserFunction {
    * updateUser
    */
   public ApiResponse updateUser(final UserRequest request, final Context context) {
-    try {
+    try (final UserService userService = new UserService(dbInfo)) {
       log.info("Request Data: {}", request);
-      final UserService userService = new UserService(dbInfo);
-
       ApiResponse findUserByUsername = findUserByUsername(request, context);
       if (!Constants.STATUS_000.equalsIgnoreCase(findUserByUsername.getStatus())) {
         return ApiResponse.build(Constants.STATUS_404, Constants.USER_NOT_EXISTING);
@@ -86,9 +80,8 @@ public class UserFunction {
    * authenticateUser
    */
   public ApiResponse authenticateUser(final UserRequest request, final Context context) {
-    try {
+    try (final UserService userService = new UserService(dbInfo)) {
       log.info("Request Data: {}", request);
-      final UserService userService = new UserService(dbInfo);
       final Users user = userService.findByField(USERNAME, request.getUsername(), Users.class);
       log.info("Response Data: {}", user);
       if (ObjectUtils.isEmpty(user)) {
@@ -105,9 +98,8 @@ public class UserFunction {
    * findUser
    */
   public ApiResponse findUserById(final UserRequest request, final Context context) {
-    try {
+    try (final UserService userService = new UserService(dbInfo)) {
       log.info("Request Data: {}", request);
-      final UserService userService = new UserService(dbInfo);
       final Users user = userService.findById(request.getUserId(), Users.class);
       log.info("Response Data: {}", user);
       if (ObjectUtils.isEmpty(user)) {
@@ -124,9 +116,8 @@ public class UserFunction {
    * findUserByUsername
    */
   public ApiResponse findUserByUsername(final UserRequest request, final Context context) {
-    try {
+    try (final UserService userService = new UserService(dbInfo)) {
       log.info("Request Data: {}", request);
-      final UserService userService = new UserService(dbInfo);
       final Users user = userService.findByField(USERNAME, request.getUsername(), Users.class);
       log.info("Response Data: {}", user);
       if (ObjectUtils.isEmpty(user)) {
@@ -143,9 +134,8 @@ public class UserFunction {
    * findUsers
    */
   public ApiResponse findUsers(final UserRequest request, final Context context) {
-    try {
+    try (final UserService userService = new UserService(dbInfo)) {
       log.info("Request Data: {}", request);
-      final UserService userService = new UserService(dbInfo);
       final List<Users> users = userService.findAll(Users.class);
       users.sort(Comparator.comparing(Users::getUpdatedAt));
       log.info("Response Data: {}", users);
